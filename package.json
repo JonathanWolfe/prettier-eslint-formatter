@@ -2,27 +2,31 @@
 	"name": "prettier-eslint-formatter",
 	"displayName": "Prettier Eslint Formatter",
 	"description": "Formats code using Prettier then ESLint --fix",
-	"version": "0.0.1",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/JonathanWolfe/prettier-eslint-formatter.git"
+	},
+	"version": "1.0.0",
 	"license": "MIT",
 	"publisher": "jonwolfe",
 	"engines": {
-		"vscode": "^1.63.0"
+		"vscode": "^1.60.0"
 	},
 	"categories": [
 		"Formatters"
 	],
+	"keywords": [
+		"eslint",
+		"prettier",
+		"prettier-eslint",
+		"format"
+	],
 	"activationEvents": [
 		"onStartupFinished"
 	],
+	"icon": "./icon.png",
 	"main": "./dist/extension.js",
-	"contributes": {
-		"commands": [
-			{
-				"command": "prettier-eslint-formatter.format",
-				"title": "Format File"
-			}
-		]
-	},
+	"contributes": {},
 	"scripts": {
 		"vscode:prepublish": "npm run esbuild-base -- --minify",
 		"esbuild-base": "esbuild ./src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --format=cjs --platform=node",

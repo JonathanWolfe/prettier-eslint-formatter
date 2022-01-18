@@ -14,17 +14,6 @@ export function activate(context: vscode.ExtensionContext) {
 
 	const moduleResolver = new ModuleResolver();
 
-	// The command has been defined in the package.json file
-	// Now provide the implementation of the command with registerCommand
-	// The commandId parameter must match the command field in package.json
-	let disposable = vscode.commands.registerCommand('prettier-eslint-formatter.format', () => {
-		if (!vscode.window.activeTextEditor) { return; }
-
-		formatter({ moduleResolver, document: vscode.window.activeTextEditor.document });
-	});
-
-	context.subscriptions.push(disposable);
-
 	const formattingProvider: vscode.DocumentRangeFormattingEditProvider = {
 		async provideDocumentRangeFormattingEdits(document, range, options, token) {
 			return formatter({ moduleResolver, document, range, options, token });
