@@ -10,7 +10,7 @@
 	"license": "MIT",
 	"publisher": "jonwolfe",
 	"engines": {
-		"vscode": "^1.60.0"
+		"vscode": "^1.63.0"
 	},
 	"categories": [
 		"Formatters"
@@ -24,7 +24,7 @@
 	"activationEvents": [
 		"onStartupFinished"
 	],
-	"icon": "./icon.png",
+	"icon": "icon.png",
 	"main": "./dist/extension.js",
 	"contributes": {},
 	"scripts": {
@@ -52,6 +52,7 @@
 		"eslint": "^7.32.0",
 		"glob": "^7.2.0",
 		"prettier": "^2.5.1",
+		"standard-version": "^9.3.2",
 		"typescript": "^4.5.4"
 	}
 }
