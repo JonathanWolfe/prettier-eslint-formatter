@@ -1,49 +1,61 @@
-// The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
-import * as vscode from 'vscode';
-import { ModuleResolver } from './copied/moduleResolver';
-import { setGlobalState, setWorkspaceState } from './copied/stateUtils';
-import formatter from './formatter';
+import { commands, ExtensionContext, workspace } from "vscode";
+import { LoggingService } from "./LoggingService";
+import { ModuleResolver } from "./ModuleResolver";
+import EditService from "./EditService";
+import { StatusBar } from "./StatusBar";
+import { getConfig } from "./util";
+import { RESTART_TO_ENABLE, EXTENSION_DISABLED } from "./message";
+import { setGlobalState, setWorkspaceState } from "./stateUtils";
 
-// this method is called when your extension is activated
-// your extension is activated the very first time the command is executed
-export function activate(context: vscode.ExtensionContext) {
+export function activate(context: ExtensionContext) {
+  const loggingService = new LoggingService();
 
-	setGlobalState(context.globalState);
-	setWorkspaceState(context.workspaceState);
+  const { enable, enableDebugLogs } = getConfig();
 
-	const moduleResolver = new ModuleResolver();
+  if (enableDebugLogs) {
+    loggingService.setOutputLevel("DEBUG");
+  }
 
-	const formattingProvider: vscode.DocumentRangeFormattingEditProvider = {
-		async provideDocumentRangeFormattingEdits(document, range, options, token) {
-			return formatter({ moduleResolver, document, range, options, token });
-		},
-	};
+  if (!enable) {
+    loggingService.logInfo(EXTENSION_DISABLED);
+    context.subscriptions.push(
+      workspace.onDidChangeConfiguration((event) => {
+        if (event.affectsConfiguration("prettier-eslint-formatter.enable")) {
+          loggingService.logWarning(RESTART_TO_ENABLE);
+        }
+      })
+    );
+    return;
+  }
 
-	const supportedLanguages = [
-		"ansible",
-		"graphql",
-		"handlebars",
-		"home-assistant",
-		"html",
-		"javascript",
-		"javascriptreact",
-		"json",
-		"json5",
-		"jsonc",
-		"markdown",
-		"mdx",
-		"mongo",
-		"typescript",
-		"typescriptreact",
-		"vue",
-		"yaml",
-	];
+  setGlobalState(context.globalState);
+  setWorkspaceState(context.workspaceState);
 
-	supportedLanguages.forEach((language) => {
-		vscode.languages.registerDocumentRangeFormattingEditProvider(language, formattingProvider);
-	});
+  const moduleResolver = new ModuleResolver(loggingService);
+
+  const statusBar = new StatusBar();
+
+  const editService = new EditService(
+    moduleResolver,
+    loggingService,
+    statusBar
+  );
+
+  const openOutputCommand = commands.registerCommand(
+    "prettier-eslint-formatter.openOutput",
+    () => {
+      loggingService.show();
+    }
+  );
+  const forceFormatDocumentCommand = commands.registerCommand(
+    "prettier-eslint-formatter.forceFormatDocument",
+    editService.forceFormatDocument
+  );
+
+  context.subscriptions.push(
+    editService,
+    openOutputCommand,
+    forceFormatDocumentCommand,
+    ...editService.registerDisposables()
+  );
 }
-
-// this method is called when your extension is deactivated
-export function deactivate() { }

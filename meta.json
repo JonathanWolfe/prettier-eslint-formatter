@@ -1,0 +1,424 @@
+{
+  "inputs": {
+    "src/LoggingService.ts": {
+      "bytes": 2979,
+      "imports": []
+    },
+    "node_modules/p-try/index.js": {
+      "bytes": 211,
+      "imports": []
+    },
+    "node_modules/p-limit/index.js": {
+      "bytes": 1114,
+      "imports": [
+        {
+          "path": "node_modules/p-try/index.js",
+          "kind": "require-call"
+        }
+      ]
+    },
+    "node_modules/p-locate/index.js": {
+      "bytes": 1239,
+      "imports": [
+        {
+          "path": "node_modules/p-limit/index.js",
+          "kind": "require-call"
+        }
+      ]
+    },
+    "node_modules/locate-path/index.js": {
+      "bytes": 1336,
+      "imports": [
+        {
+          "path": "node_modules/p-locate/index.js",
+          "kind": "require-call"
+        }
+      ]
+    },
+    "node_modules/find-up/node_modules/path-exists/index.js": {
+      "bytes": 347,
+      "imports": []
+    },
+    "node_modules/find-up/index.js": {
+      "bytes": 1940,
+      "imports": [
+        {
+          "path": "node_modules/locate-path/index.js",
+          "kind": "require-call"
+        },
+        {
+          "path": "node_modules/find-up/node_modules/path-exists/index.js",
+          "kind": "require-call"
+        }
+      ]
+    },
+    "node_modules/resolve/lib/caller.js": {
+      "bytes": 354,
+      "imports": []
+    },
+    "node_modules/path-parse/index.js": {
+      "bytes": 1893,
+      "imports": []
+    },
+    "node_modules/resolve/lib/node-modules-paths.js": {
+      "bytes": 1294,
+      "imports": [
+        {
+          "path": "node_modules/path-parse/index.js",
+          "kind": "require-call"
+        }
+      ]
+    },
+    "node_modules/resolve/lib/normalize-options.js": {
+      "bytes": 348,
+      "imports": []
+    },
+    "node_modules/function-bind/implementation.js": {
+      "bytes": 1463,
+      "imports": []
+    },
+    "node_modules/function-bind/index.js": {
+      "bytes": 126,
+      "imports": [
+        {
+          "path": "node_modules/function-bind/implementation.js",
+          "kind": "require-call"
+        }
+      ]
+    },
+    "node_modules/has/src/index.js": {
+      "bytes": 129,
+      "imports": [
+        {
+          "path": "node_modules/function-bind/index.js",
+          "kind": "require-call"
+        }
+      ]
+    },
+    "node_modules/is-core-module/core.json": {
+      "bytes": 5469,
+      "imports": []
+    },
+    "node_modules/is-core-module/index.js": {
+      "bytes": 1757,
+      "imports": [
+        {
+          "path": "node_modules/has/src/index.js",
+          "kind": "require-call"
+        },
+        {
+          "path": "node_modules/is-core-module/core.json",
+          "kind": "require-call"
+        }
+      ]
+    },
+    "node_modules/resolve/lib/async.js": {
+      "bytes": 11132,
+      "imports": [
+        {
+          "path": "node_modules/resolve/lib/caller.js",
+          "kind": "require-call"
+        },
+        {
+          "path": "node_modules/resolve/lib/node-modules-paths.js",
+          "kind": "require-call"
+        },
+        {
+          "path": "node_modules/resolve/lib/normalize-options.js",
+          "kind": "require-call"
+        },
+        {
+          "path": "node_modules/is-core-module/index.js",
+          "kind": "require-call"
+        }
+      ]
+    },
+    "node_modules/resolve/lib/core.json": {
+      "bytes": 5447,
+      "imports": []
+    },
+    "node_modules/resolve/lib/core.js": {
+      "bytes": 1653,
+      "imports": [
+        {
+          "path": "node_modules/resolve/lib/core.json",
+          "kind": "require-call"
+        }
+      ]
+    },
+    "node_modules/resolve/lib/is-core.js": {
+      "bytes": 116,
+      "imports": [
+        {
+          "path": "node_modules/is-core-module/index.js",
+          "kind": "require-call"
+        }
+      ]
+    },
+    "node_modules/resolve/lib/sync.js": {
+      "bytes": 6766,
+      "imports": [
+        {
+          "path": "node_modules/is-core-module/index.js",
+          "kind": "require-call"
+        },
+        {
+          "path": "node_modules/resolve/lib/caller.js",
+          "kind": "require-call"
+        },
+        {
+          "path": "node_modules/resolve/lib/node-modules-paths.js",
+          "kind": "require-call"
+        },
+        {
+          "path": "node_modules/resolve/lib/normalize-options.js",
+          "kind": "require-call"
+        }
+      ]
+    },
+    "node_modules/resolve/index.js": {
+      "bytes": 174,
+      "imports": [
+        {
+          "path": "node_modules/resolve/lib/async.js",
+          "kind": "require-call"
+        },
+        {
+          "path": "node_modules/resolve/lib/core.js",
+          "kind": "require-call"
+        },
+        {
+          "path": "node_modules/resolve/lib/is-core.js",
+          "kind": "require-call"
+        },
+        {
+          "path": "node_modules/resolve/lib/sync.js",
+          "kind": "require-call"
+        }
+      ]
+    },
+    "src/Files.ts": {
+      "bytes": 3621,
+      "imports": []
+    },
+    "src/message.ts": {
+      "bytes": 2423,
+      "imports": []
+    },
+    "src/stateUtils.ts": {
+      "bytes": 1594,
+      "imports": []
+    },
+    "src/ModuleResolver.ts": {
+      "bytes": 14977,
+      "imports": [
+        {
+          "path": "node_modules/find-up/index.js",
+          "kind": "import-statement"
+        },
+        {
+          "path": "node_modules/resolve/index.js",
+          "kind": "import-statement"
+        },
+        {
+          "path": "src/Files.ts",
+          "kind": "import-statement"
+        },
+        {
+          "path": "src/message.ts",
+          "kind": "import-statement"
+        },
+        {
+          "path": "src/stateUtils.ts",
+          "kind": "import-statement"
+        }
+      ]
+    },
+    "src/languageFilters.ts": {
+      "bytes": 1055,
+      "imports": []
+    },
+    "src/EditProvider.ts": {
+      "bytes": 1370,
+      "imports": []
+    },
+    "src/StatusBar.ts": {
+      "bytes": 1825,
+      "imports": []
+    },
+    "src/util.ts": {
+      "bytes": 1347,
+      "imports": []
+    },
+    "src/EditService.ts": {
+      "bytes": 14862,
+      "imports": [
+        {
+          "path": "src/languageFilters.ts",
+          "kind": "import-statement"
+        },
+        {
+          "path": "src/message.ts",
+          "kind": "import-statement"
+        },
+        {
+          "path": "src/EditProvider.ts",
+          "kind": "import-statement"
+        },
+        {
+          "path": "src/StatusBar.ts",
+          "kind": "import-statement"
+        },
+        {
+          "path": "src/util.ts",
+          "kind": "import-statement"
+        }
+      ]
+    },
+    "src/extension.ts": {
+      "bytes": 1716,
+      "imports": [
+        {
+          "path": "src/LoggingService.ts",
+          "kind": "import-statement"
+        },
+        {
+          "path": "src/ModuleResolver.ts",
+          "kind": "import-statement"
+        },
+        {
+          "path": "src/EditService.ts",
+          "kind": "import-statement"
+        },
+        {
+          "path": "src/StatusBar.ts",
+          "kind": "import-statement"
+        },
+        {
+          "path": "src/util.ts",
+          "kind": "import-statement"
+        },
+        {
+          "path": "src/message.ts",
+          "kind": "import-statement"
+        },
+        {
+          "path": "src/stateUtils.ts",
+          "kind": "import-statement"
+        }
+      ]
+    }
+  },
+  "outputs": {
+    "dist/extension.js.map": {
+      "imports": [],
+      "exports": [],
+      "inputs": {},
+      "bytes": 120783
+    },
+    "dist/extension.js": {
+      "imports": [],
+      "exports": [],
+      "entryPoint": "src/extension.ts",
+      "inputs": {
+        "node_modules/p-try/index.js": {
+          "bytesInOutput": 284
+        },
+        "node_modules/p-limit/index.js": {
+          "bytesInOutput": 1460
+        },
+        "node_modules/p-locate/index.js": {
+          "bytesInOutput": 1232
+        },
+        "node_modules/locate-path/index.js": {
+          "bytesInOutput": 1716
+        },
+        "node_modules/find-up/node_modules/path-exists/index.js": {
+          "bytesInOutput": 577
+        },
+        "node_modules/find-up/index.js": {
+          "bytesInOutput": 2242
+        },
+        "node_modules/resolve/lib/caller.js": {
+          "bytesInOutput": 417
+        },
+        "node_modules/path-parse/index.js": {
+          "bytesInOutput": 1948
+        },
+        "node_modules/resolve/lib/node-modules-paths.js": {
+          "bytesInOutput": 1368
+        },
+        "node_modules/resolve/lib/normalize-options.js": {
+          "bytesInOutput": 197
+        },
+        "node_modules/function-bind/implementation.js": {
+          "bytesInOutput": 1504
+        },
+        "node_modules/function-bind/index.js": {
+          "bytesInOutput": 243
+        },
+        "node_modules/has/src/index.js": {
+          "bytesInOutput": 232
+        },
+        "node_modules/is-core-module/core.json": {
+          "bytesInOutput": 6222
+        },
+        "node_modules/is-core-module/index.js": {
+          "bytesInOutput": 2095
+        },
+        "node_modules/resolve/lib/async.js": {
+          "bytesInOutput": 11216
+        },
+        "node_modules/resolve/lib/core.json": {
+          "bytesInOutput": 6198
+        },
+        "node_modules/resolve/lib/core.js": {
+          "bytesInOutput": 1787
+        },
+        "node_modules/resolve/lib/is-core.js": {
+          "bytesInOutput": 232
+        },
+        "node_modules/resolve/lib/sync.js": {
+          "bytesInOutput": 6758
+        },
+        "node_modules/resolve/index.js": {
+          "bytesInOutput": 264
+        },
+        "src/extension.ts": {
+          "bytesInOutput": 1362
+        },
+        "src/LoggingService.ts": {
+          "bytesInOutput": 1791
+        },
+        "src/ModuleResolver.ts": {
+          "bytesInOutput": 10336
+        },
+        "src/Files.ts": {
+          "bytesInOutput": 2118
+        },
+        "src/message.ts": {
+          "bytesInOutput": 1388
+        },
+        "src/stateUtils.ts": {
+          "bytesInOutput": 478
+        },
+        "src/EditService.ts": {
+          "bytesInOutput": 11835
+        },
+        "src/languageFilters.ts": {
+          "bytesInOutput": 453
+        },
+        "src/EditProvider.ts": {
+          "bytesInOutput": 496
+        },
+        "src/StatusBar.ts": {
+          "bytesInOutput": 619
+        },
+        "src/util.ts": {
+          "bytesInOutput": 421
+        }
+      },
+      "bytes": 82494
+    }
+  }
+}

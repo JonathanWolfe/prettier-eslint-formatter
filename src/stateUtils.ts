@@ -1,8 +1,3 @@
-/**
- * Taken from prettier vs-code extension
- * https://github.com/prettier/prettier-vscode/blob/v9.1.0/src/ModuleResolver.ts
- */
-
 /*---------------------------------------------------------
  * Copyright (C) Microsoft Corporation. All rights reserved.
  * Licensed under the MIT License. See THIRDPARTY in the project root for license information.
@@ -15,48 +10,48 @@ let workspaceState: vscode.Memento;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function getFromGlobalState(key: string, defaultValue?: any): any {
-    if (!globalState) {
-        return defaultValue;
-    }
-    return globalState.get(key, defaultValue);
+  if (!globalState) {
+    return defaultValue;
+  }
+  return globalState.get(key, defaultValue);
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function updateGlobalState(key: string, value: any) {
-    if (!globalState) {
-        return;
-    }
-    return globalState.update(key, value);
+  if (!globalState) {
+    return;
+  }
+  return globalState.update(key, value);
 }
 
 export function setGlobalState(state: vscode.Memento) {
-    globalState = state;
+  globalState = state;
 }
 
 export function getGlobalState() {
-    return globalState;
+  return globalState;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function getFromWorkspaceState(key: string, defaultValue?: any) {
-    if (!workspaceState) {
-        return defaultValue;
-    }
-    return workspaceState.get(key, defaultValue);
+  if (!workspaceState) {
+    return defaultValue;
+  }
+  return workspaceState.get(key, defaultValue);
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function updateWorkspaceState(key: string, value: any) {
-    if (!workspaceState) {
-        return;
-    }
-    return workspaceState.update(key, value);
+  if (!workspaceState) {
+    return;
+  }
+  return workspaceState.update(key, value);
 }
 
 export function setWorkspaceState(state: vscode.Memento) {
-    workspaceState = state;
+  workspaceState = state;
 }
 
 export function getWorkspaceState(): vscode.Memento {
-    return workspaceState;
+  return workspaceState;
 }

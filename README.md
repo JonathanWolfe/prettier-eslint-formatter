@@ -41,3 +41,6 @@ Set this plugin as the default formatter for your filetype(s) in your workspace'
   - A: No
 - *"Do I need the eslint extension installed too?"*
   - A: No, but you should anyway
+
+## Prior Art
+- Most of this extension is shamelessly lifted from the prettier-vscode plugin: <https://github.com/prettier/prettier-vscode>
