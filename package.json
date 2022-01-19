@@ -39,7 +39,7 @@
 		"virtualWorkspaces": true,
 		"untrustedWorkspaces": {
 			"supported": "limited",
-			"description": "%ext.capabilities.untrustedWorkspaces.description%",
+			"description": "Not offically supported, but good luck.",
 			"restrictedConfigurations": [
 				"prettier-eslint-formatter.documentSelectors",
 				"prettier-eslint-formatter.resolveGlobalModules",
@@ -55,53 +55,26 @@
 	"contributes": {
 		"configuration": {
 			"type": "object",
-			"title": "%ext.config.title%",
+			"title": "Prettier ESLint Formatter",
 			"properties": {
-				"prettier-eslint-formatter.disableLanguages": {
-					"type": "array",
-					"items": {
-						"type": "string"
-					},
-					"deprecationMessage": "%ext.config.disableLanguagesDeprecation%",
-					"markdownDescription": "%ext.config.disableLanguages%",
-					"scope": "window"
-				},
 				"prettier-eslint-formatter.documentSelectors": {
 					"type": "array",
 					"items": {
 						"type": "string"
 					},
-					"markdownDescription": "%ext.config.documentSelectors%",
+					"markdownDescription": "Additional document types to format",
 					"scope": "window"
 				},
 				"prettier-eslint-formatter.enable": {
 					"type": "boolean",
 					"default": true,
-					"markdownDescription": "%ext.config.enable%",
-					"scope": "resource"
-				},
-				"prettier-eslint-formatter.packageManager": {
-					"scope": "resource",
-					"type": "string",
-					"enum": [
-						"npm",
-						"yarn",
-						"pnpm"
-					],
-					"default": "npm",
-					"deprecationMessage": "%ext.config.packageManagerDeprecation%",
-					"markdownDescription": "%ext.config.packageManager%"
-				},
-				"prettier-eslint-formatter.useEditorConfig": {
-					"type": "boolean",
-					"default": true,
-					"markdownDescription": "%ext.config.useEditorConfig%",
+					"markdownDescription": "Enable Prettier Eslint Formatter",
 					"scope": "resource"
 				},
 				"prettier-eslint-formatter.enableDebugLogs": {
 					"type": "boolean",
 					"default": false,
-					"markdownDescription": "%ext.config.enableDebugLogs%",
+					"markdownDescription": "Enable debug logging",
 					"scope": "resource"
 				}
 			}
@@ -109,7 +82,7 @@
 		"commands": [
 			{
 				"command": "prettier-eslint-formatter.forceFormatDocument",
-				"title": "%ext.command.forceFormatDocument.title%",
+				"title": "Force a document to be formatted with Prettier ESLint Formatter",
 				"when": "editorFocus"
 			}
 		]
