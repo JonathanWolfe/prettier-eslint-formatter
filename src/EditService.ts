@@ -392,6 +392,8 @@ export default class PrettierEditService implements Disposable {
       return;
     }
 
+    const eslintService = new eslintInstance.ESLint({ fix: true, });
+
     let fileInfo: PrettierFileInfoResult | undefined;
     if (fileName) {
       fileInfo = await prettierInstance.getFileInfo(fileName, {
@@ -438,23 +440,17 @@ export default class PrettierEditService implements Disposable {
       options
     );
 
-    this.loggingService.logDebug("Prettier Options:", prettierOptions);
+    // this.loggingService.logDebug("Prettier Options:", prettierOptions);
 
     try {
       const prettied = prettierInstance.format(text, prettierOptions);
+      // const eslintConfig = await eslintService.calculateConfigForFile(fileName);
 
-      const eslintService = new eslintInstance.ESLint({
-        fix: true,
-        fixTypes: ['layout', 'problem', 'suggestion'],
-      });
-
-      const eslintConfig = await eslintService.calculateConfigForFile(fileName);
-
-      this.loggingService.logDebug("ESLint Options:", eslintConfig);
+      // this.loggingService.logDebug("ESLint Options:", eslintConfig);
 
       const [eslinted] = await eslintService.lintText(prettied || text, { filePath: fileName, warnIgnored: false });
 
-      this.loggingService.logDebug("ESLint Resp:", eslinted);
+      // this.loggingService.logDebug("ESLint Resp:", eslinted);
       const formattedText = eslinted?.output || eslinted?.source || text;
 
       this.statusBar.update(FormatterStatus.Success);
