@@ -73,10 +73,32 @@ function globalPathGet(packageManager: PackageManagers): string | undefined {
 }
 
 export class ModuleResolver {
-  private prettierPath2Module = new Map<string, PrettierModule>();
-  private eslintPath2Module = new Map<string, ESLintModule>();
+  public prettierPath2Module = new Map<string, PrettierModule>();
+  public eslintPath2Module = new Map<string, ESLintModule>();
 
   constructor(private loggingService: LoggingService) { }
+
+  public moduleToRoot(path: string) {
+    return path.substring(0, path.lastIndexOf('node_modules') - 1);
+  }
+
+  public getEslintPathForInstance(instance: ESLintModule): string {
+    if (!instance) {
+      return '';
+    }
+
+    const keys = Array.from(this.eslintPath2Module.keys());
+
+    for (const key of keys) {
+      const instancePath = this.eslintPath2Module.get(key);
+
+      if (instancePath === instance) {
+        return this.moduleToRoot(key);
+      }
+    }
+
+    return '';
+  }
 
   /**
    * Returns an instance of the prettier module.
@@ -363,18 +385,27 @@ export class ModuleResolver {
 
   // Source: https://github.com/microsoft/vscode-eslint/blob/master/server/src/eslintServer.ts
   private loadNodeModule<T>(moduleName: string): T | undefined {
+    const origCWD = process.cwd();
+
     const r =
       typeof __webpack_require__ === "function"
         ? __non_webpack_require__
         : require;
+
     try {
-      return r(moduleName);
+      process.chdir(this.moduleToRoot(moduleName));
+      const instance = r(moduleName);
+      process.chdir(origCWD);
+
+      return instance;
     } catch (error) {
+      process.chdir(origCWD);
       this.loggingService.logError(
         `Error loading node module '${moduleName}'`,
         error
       );
     }
+
     return undefined;
   }
 
@@ -427,9 +458,17 @@ export class ModuleResolver {
 
           if (
             packageJson &&
-            ((packageJson.dependencies && packageJson.dependencies[pkgName]) ||
-              (packageJson.devDependencies &&
-                packageJson.devDependencies[pkgName]))
+            (
+              (
+                packageJson.dependencies &&
+                packageJson.dependencies[pkgName]
+              )
+              ||
+              (
+                packageJson.devDependencies &&
+                packageJson.devDependencies[pkgName]
+              )
+            )
           ) {
             return dir;
           }

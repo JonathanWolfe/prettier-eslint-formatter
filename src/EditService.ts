@@ -392,7 +392,12 @@ export default class PrettierEditService implements Disposable {
       return;
     }
 
-    const eslintService = new eslintInstance.ESLint({ fix: true, });
+    const origCWD = process.cwd();
+
+    const eslintDir = this.moduleResolver.getEslintPathForInstance(eslintInstance);
+
+    process.chdir(eslintDir);
+    const eslintService = new eslintInstance.ESLint({ fix: true, cwd: eslintDir });
 
     let fileInfo: PrettierFileInfoResult | undefined;
     if (fileName) {
@@ -406,6 +411,7 @@ export default class PrettierEditService implements Disposable {
     if (!options.force && fileInfo && fileInfo.ignored) {
       this.loggingService.logInfo("File is ignored, skipping.");
       this.statusBar.update(FormatterStatus.Ignore);
+      process.chdir(origCWD);
       return;
     }
 
@@ -429,6 +435,7 @@ export default class PrettierEditService implements Disposable {
         `Failed to resolve a parser, skipping file. If you registered a custom file extension, be sure to configure the parser.`
       );
       this.statusBar.update(FormatterStatus.Error);
+      process.chdir(origCWD);
       return;
     }
 
@@ -450,16 +457,22 @@ export default class PrettierEditService implements Disposable {
 
       const [eslinted] = await eslintService.lintText(prettied || text, { filePath: fileName, warnIgnored: false });
 
+      if (eslinted.fatalErrorCount) {
+        throw new Error(eslinted.messages[0].message);
+      }
+
       // this.loggingService.logDebug("ESLint Resp:", eslinted);
       const formattedText = eslinted?.output || eslinted?.source || text;
 
       this.statusBar.update(FormatterStatus.Success);
 
+      process.chdir(origCWD);
       return formattedText;
     } catch (error) {
       this.loggingService.logError("Error formatting document.", error);
       this.statusBar.update(FormatterStatus.Error);
 
+      process.chdir(origCWD);
       return text;
     }
   }
