@@ -93,7 +93,8 @@
 		"esbuild": "yarn run esbuild-base -- --sourcemap",
 		"esbuild-watch": "yarn run esbuild-base -- --sourcemap --watch",
 		"esbuild-analyze": "yarn run esbuild -- --metafile=meta.json && esbuild-visualizer --metadata ./meta.json --exclude *.png",
-		"test-compile": "tsc -p ./"
+		"test-compile": "tsc -p ./",
+		"release": "standard-version && git push --follow-tags origin main && vsce publish"
 	},
 	"dependencies": {
 		"find-up": "^4.1.0",
