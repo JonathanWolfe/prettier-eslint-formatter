@@ -53,7 +53,26 @@ async function prettierRegular(params: FormatterParams): Promise<string> {
   return results.stdout;
 }
 async function prettierDaemon(params: FormatterParams): Promise<string> {
-  return prettierRegular(params);
+  const {
+    bin, fileName, cwd, text, logger,
+  } = params;
+
+  const results = await execa(
+    bin,
+    [
+      fileName,
+    ],
+    { ...execaOptions(cwd), input: text },
+  );
+
+  logger.logDebug('prettier output:', results);
+
+  if (results.exitCode !== 0) {
+    logger.logError('Prettier STDERR: ', results.stderr);
+    throw new Error('Prettier failed. Check above output for the reason.');
+  }
+
+  return results.stdout;
 }
 
 export async function doPrettier(params: FormatterParams): Promise<string> {

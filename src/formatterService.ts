@@ -183,7 +183,7 @@ export class FormatterService implements Disposable {
       }
 
       /* TODO: Get prettierd fixed so it correctly parses cli args */
-      // prettier = this.settingsManager.daemonPathPrettier;
+      prettier = this.settingsManager.daemonPathPrettier;
       eslint = this.settingsManager.daemonPathEslint;
     }
 
@@ -213,8 +213,7 @@ export class FormatterService implements Disposable {
         fileName,
         text,
         bin: prettier,
-        // isDaemon: this.settingsManager.useDaemons,
-        isDaemon: false, // TODO
+        isDaemon: this.settingsManager.useDaemons,
         logger: this.logger,
       });
 
