@@ -1,61 +1,47 @@
-import { commands, ExtensionContext, workspace } from "vscode";
-import { LoggingService } from "./LoggingService";
-import { ModuleResolver } from "./ModuleResolver";
-import EditService from "./EditService";
-import { StatusBar } from "./StatusBar";
-import { getConfig } from "./util";
-import { RESTART_TO_ENABLE, EXTENSION_DISABLED } from "./message";
-import { setGlobalState, setWorkspaceState } from "./stateUtils";
+import type { ExtensionContext } from 'vscode';
+import { commands } from 'vscode';
 
-export function activate(context: ExtensionContext) {
-  const loggingService = new LoggingService();
+import { FormatterService } from './formatterService';
+import { Logger } from './logging';
+import { SettingsManager } from './settingsManager';
+import { StatusBar } from './statusBar';
 
-  const { enable, enableDebugLogs } = getConfig();
-
-  if (enableDebugLogs) {
-    loggingService.setOutputLevel("DEBUG");
-  }
-
-  if (!enable) {
-    loggingService.logInfo(EXTENSION_DISABLED);
-    context.subscriptions.push(
-      workspace.onDidChangeConfiguration((event) => {
-        if (event.affectsConfiguration("prettier-eslint-formatter.enable")) {
-          loggingService.logWarning(RESTART_TO_ENABLE);
-        }
-      })
-    );
-    return;
-  }
-
-  setGlobalState(context.globalState);
-  setWorkspaceState(context.workspaceState);
-
-  const moduleResolver = new ModuleResolver(loggingService);
-
+export async function activate(context: ExtensionContext) {
   const statusBar = new StatusBar();
+  const settingsManager = new SettingsManager();
+  const logger = new Logger({ settingsManager, statusBar });
 
-  const editService = new EditService(
-    moduleResolver,
-    loggingService,
-    statusBar
-  );
+  logger.logInfo('Starting up');
+
+  settingsManager.logger = logger;
+
+  logger.logInfo('activating settings manager');
+
+  settingsManager.activate(context);
+  await settingsManager.update();
+
+  const formatterService = new FormatterService({ settingsManager, statusBar, logger });
+
+  logger.logInfo('Registering commands');
 
   const openOutputCommand = commands.registerCommand(
-    "prettier-eslint-formatter.openOutput",
+    'prettier-eslint-formatter.openOutput',
     () => {
-      loggingService.show();
-    }
-  );
-  const forceFormatDocumentCommand = commands.registerCommand(
-    "prettier-eslint-formatter.forceFormatDocument",
-    editService.forceFormatDocument
+      logger.show();
+    },
   );
 
+  const forceFormatDocumentCommand = commands.registerCommand(
+    'prettier-eslint-formatter.forceFormatDocument',
+    formatterService.forceFormatDocument,
+  );
+
+  logger.logInfo('Settings subscriptions');
+
   context.subscriptions.push(
-    editService,
+    formatterService,
     openOutputCommand,
     forceFormatDocumentCommand,
-    ...editService.registerDisposables()
+    ...formatterService.registerDisposables(),
   );
 }
