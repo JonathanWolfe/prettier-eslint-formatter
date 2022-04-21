@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file. See [standa
 
 ## [2.0.0](https://github.com/JonathanWolfe/prettier-eslint-formatter/compare/v1.0.6...v2.0.0) (2022-04-21)
 
-### [1.0.6](https://github.com/JonathanWolfe/prettier-eslint-formatter/compare/v1.0.5...v1.0.6) (2022-04-21)
+- Rewritten to call bins directly and use daemons if enabled
 
 ### [1.0.5](https://github.com/JonathanWolfe/prettier-eslint-formatter/compare/v1.0.4...v1.0.5) (2022-02-25)
 
