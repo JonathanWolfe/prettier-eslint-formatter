@@ -53,6 +53,12 @@
           "markdownDescription": "Enable PEF",
           "scope": "resource"
         },
+        "prettier-eslint-formatter.useDaemons": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "Use `eslint_d` and `@fsouza/prettierd` to speedup eslint and prettier invocations",
+          "scope": "resource"
+        },
         "prettier-eslint-formatter.enableDebugLogs": {
           "type": "boolean",
           "default": false,
@@ -84,9 +90,7 @@
   },
   "dependencies": {
     "execa": "^6.1.0",
-    "npm-which": "^3.0.1",
-    "resolve-from": "^5.0.0",
-    "resolve-global": "^1.0.0"
+    "npm-which": "^3.0.1"
   },
   "devDependencies": {
     "@types/eslint": "^8.4.1",
