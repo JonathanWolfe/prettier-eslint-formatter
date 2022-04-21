@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.0.1](https://github.com/JonathanWolfe/prettier-eslint-formatter/compare/v2.0.0...v2.0.1) (2022-04-21)
+
+
+### Bug Fixes
+
+* Fix prettierd integration ([a081226](https://github.com/JonathanWolfe/prettier-eslint-formatter/commit/a08122639082eb6b1a857db989d10cc1cf23287f))
+* update readme and changelog ([4be9425](https://github.com/JonathanWolfe/prettier-eslint-formatter/commit/4be9425da087171e89324de6790a0d95611177f2))
+
 ## [2.0.0](https://github.com/JonathanWolfe/prettier-eslint-formatter/compare/v1.0.6...v2.0.0) (2022-04-21)
 
 - Rewritten to call bins directly and use daemons if enabled

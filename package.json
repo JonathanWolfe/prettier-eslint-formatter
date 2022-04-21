@@ -9,7 +9,7 @@
   "bugs": {
     "url": "https://github.com/JonathanWolfe/prettier-eslint-formatter/issues"
   },
-  "version": "2.0.0",
+  "version": "2.0.1",
   "license": "MIT",
   "publisher": "jonwolfe",
   "author": "Jon Wolfe <@_JonWolfe>",
