@@ -57,6 +57,7 @@ export class SettingsManager implements Settings {
     if (value) this.resolver = new Resolver({ logger: value });
   }
 
+  /** @description Updating all settings. */
   update = async () => {
     const settings = workspace.getConfiguration('prettier-eslint-formatter');
 
@@ -71,15 +72,18 @@ export class SettingsManager implements Settings {
     this.useDaemons = useDaemons;
   };
 
+  /** @description Override a specific setting until the next `.update()` */
   set = <T extends keyof Settings>(key: T, value: Settings[T]) => {
     // @ts-expect-error I don't know how to fix this type error
     this[key] = value;
   };
 
+  /** @description Adding the settingsWatcher to the context.subscriptions array. */
   activate = (context: ExtensionContext) => {
     context.subscriptions.push(this.settingsWatcher);
   };
 
+  /** @description Removing the settingsWatcher from the context.subscriptions array. */
   deactivate = (context: ExtensionContext) => {
     context.subscriptions.splice(context.subscriptions.indexOf(this.settingsWatcher), 1);
   };

@@ -6,6 +6,11 @@ import { Logger } from './logging';
 import { SettingsManager } from './settingsManager';
 import { StatusBar } from './statusBar';
 
+/**
+ * Initializes the extension
+ * @param {ExtensionContext} context - ExtensionContext - This is the context of the extension. It's
+ * used to register commands and subscriptions.
+ */
 export async function activate(context: ExtensionContext) {
   const statusBar = new StatusBar();
   const settingsManager = new SettingsManager();

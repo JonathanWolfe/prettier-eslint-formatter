@@ -51,6 +51,7 @@ export class FormatterService implements Disposable {
     this.resolver = new Resolver({ logger: props.logger });
   }
 
+  /** @description Registering the `handleActiveTextEditorChanged` function to be called when the active text editor changes. */
   public registerDisposables = (): Disposable[] => {
     const textEditorChange = window.onDidChangeActiveTextEditor(
       this.handleActiveTextEditorChanged,
@@ -63,6 +64,7 @@ export class FormatterService implements Disposable {
     ];
   };
 
+  /** @description Registering the document editor providers for the workspace. */
   private handleActiveTextEditorChanged = async (textEditor: TextEditor | undefined) => {
     if (!textEditor) return;
 
@@ -112,6 +114,7 @@ export class FormatterService implements Disposable {
     }
   };
 
+  /** @description Disposing the formatterHandler and rangeFormatterHandler. */
   public dispose = () => {
     this.formatterHandler?.dispose();
     this.rangeFormatterHandler?.dispose();
@@ -119,6 +122,7 @@ export class FormatterService implements Disposable {
     this.rangeFormatterHandler = undefined;
   };
 
+  /** @description Registering the document editor providers for the workspace. */
   private registerDocumentFormatEditorProviders = ({ languageSelector, rangeLanguageSelector }: ISelectors) => {
     this.dispose();
 
@@ -135,6 +139,7 @@ export class FormatterService implements Disposable {
     );
   };
 
+  /** @description A function that is called when the user wants to format a document. */
   private provideEdits = async (document: TextDocument): Promise<TextEdit[]> => {
     // No edits happened, return never so VS Code can try other formatters
     if (!this.settingsManager.isEnabled) {
@@ -162,11 +167,7 @@ export class FormatterService implements Disposable {
     return [TextEdit.replace(this.fullDocumentRange(document), result)];
   };
 
-  /**
-   * Format the given text with user's configuration.
-   * @param text Text to format
-   * @returns {string} formatted text
-   */
+  /** @description Format the given text with user's configuration. */
   private format = async (text: string, doc: TextDocument): Promise<string | undefined> => {
     const { fileName, uri } = doc;
 
@@ -234,11 +235,13 @@ export class FormatterService implements Disposable {
     }
   };
 
+  /** @description Getting the range of the document. */
   private fullDocumentRange = (document: TextDocument): Range => {
     const lastLineId = document.lineCount - 1;
     return new Range(0, 0, lastLineId, document.lineAt(lastLineId).text.length);
   };
 
+  /** @description Forces a document to be formatted by us */
   public forceFormatDocument = async () => {
     try {
       const editor = window.activeTextEditor;

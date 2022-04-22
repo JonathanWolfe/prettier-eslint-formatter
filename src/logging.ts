@@ -22,7 +22,7 @@ export class Logger {
   /**
    * Append messages to the output channel and format it with a title
    *
-   * @param message The message to append to the output channel
+   * @param {string} message The message to append to the output channel
    */
   public logDebug = (message: string, data?: unknown): void => {
     if (
@@ -44,7 +44,7 @@ export class Logger {
   /**
    * Append messages to the output channel and format it with a title
    *
-   * @param message The message to append to the output channel
+   * @param {string} message The message to append to the output channel
    */
   public logInfo = (message: string, data?: unknown): void => {
     if (
@@ -65,7 +65,7 @@ export class Logger {
   /**
    * Append messages to the output channel and format it with a title
    *
-   * @param message The message to append to the output channel
+   * @param {string} message The message to append to the output channel
    */
   public logWarning = (message: string, data?: unknown): void => {
     if (this.logLevel() === 'NONE' || this.logLevel() === 'ERROR') {
@@ -81,6 +81,12 @@ export class Logger {
     }
   };
 
+  /**
+   * Append messages to the output channel and format it with a title
+   *
+   * @param {string} message The message to append to the output channel
+   * @param {Error} [error] Error object to be logged
+   */
   public logError = (message: string, error?: unknown) => {
     if (this.logLevel() === 'NONE') {
       return;
@@ -107,6 +113,7 @@ export class Logger {
     }
   };
 
+  /** @description Shows the output channel. */
   public show = () => {
     this.outputChannel.show();
   };
@@ -125,7 +132,7 @@ export class Logger {
   /**
    * Append messages to the output channel and format it with a title
    *
-   * @param message The message to append to the output channel
+   * @param {string} message The message to append to the output channel
    */
   private logMessage = (message: string, level: LogLevel): void => {
     const title = new Date().toLocaleTimeString();

@@ -27,9 +27,7 @@ export class StatusBar {
     this.statusBarItem.show();
   }
 
-  /**
-   * Update the statusBarItem message and show the statusBarItem
-   */
+  /** @description Update the statusBarItem message and show the statusBarItem */
   public update(result: FormatterStatus): void {
     this.statusBarItem.text = `$(${result.toString()}) PEF`;
     if (result === FormatterStatus.Error) {
@@ -44,6 +42,7 @@ export class StatusBar {
     this.statusBarItem.show();
   }
 
+  /** @description Hide the statusBarItem */
   public hide() {
     this.statusBarItem.hide();
   }

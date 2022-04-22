@@ -27,6 +27,7 @@ export class Resolver {
     this.logger = props.logger;
   }
 
+  /** @description Finding the path to the package. */
   find = async (pkg: keyof CacheMapping, cwd: string): Promise<string> => {
     const cached = this.cache.get(`${cwd}-${pkg}`);
 
@@ -72,6 +73,7 @@ export class Resolver {
     return pkgPath;
   };
 
+  /** @description Installing the daemon if it is not already installed. */
   getOrInstallDaemon = async (pkg: 'eslint_d' | 'prettierd', cwd: string) => {
     const installName = pkgInstallMappings[pkg] || pkg;
     const out = execaSync('npm', ['install', '--global', `${installName}@latest`], {
@@ -88,6 +90,7 @@ export class Resolver {
     return this.find(pkg, cwd);
   };
 
+  /** @description Performs setup of all daemons */
   setupDaemons = async (settingsManager: SettingsManager, cwd?: string) => {
     this.logger?.logInfo('Installing daemons if needed');
 
