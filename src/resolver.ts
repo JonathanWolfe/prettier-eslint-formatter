@@ -1,11 +1,12 @@
+import type { SyncOptions } from 'execa';
+import os from 'os';
 import path from 'path';
 import { execaSync } from 'execa';
 import npmWhich from 'npm-which';
-// import { silent as resolveFrom } from 'resolve-from';
-// import { silent as resolveGlobal } from 'resolve-global';
 
 import type { Logger } from './logging';
 import type { SettingsManager } from './settingsManager';
+import { execaOptions } from './formatter';
 
 interface CacheMapping {
   eslint?: string;
@@ -94,7 +95,7 @@ export class Resolver {
   setupDaemons = async (settingsManager: SettingsManager, cwd?: string) => {
     this.logger?.logInfo('Installing daemons if needed');
 
-    const root = cwd || path.resolve('.');
+    const root = cwd || os.homedir();
 
     if (!settingsManager.daemonPathEslint) {
       try {
@@ -113,6 +114,30 @@ export class Resolver {
         settingsManager.set('daemonPathPrettier', daemonPathPrettier);
       } catch (err) {
         this.logger?.logError('Failed to setup prettier daemon', err);
+      }
+    }
+
+    await this.restartDaemons(settingsManager, cwd);
+  };
+
+  restartDaemons = async (settingsManager: SettingsManager, cwd?: string) => {
+    this.logger?.logDebug('Resetting daemon servers');
+
+    const root = cwd || os.homedir();
+
+    if (settingsManager.daemonPathEslint) {
+      try {
+        execaSync(settingsManager.daemonPathEslint, ['restart'], execaOptions(root) as SyncOptions);
+      } catch (err) {
+        this.logger?.logError('Error while restarting daemon', err);
+      }
+    }
+
+    if (settingsManager.daemonPathPrettier) {
+      try {
+        execaSync(settingsManager.daemonPathPrettier, ['restart'], execaOptions(root) as SyncOptions);
+      } catch (err) {
+        this.logger?.logError('Error while restarting daemon', err);
       }
     }
   };

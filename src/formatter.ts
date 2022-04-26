@@ -8,7 +8,7 @@ import type { Logger } from './logging';
  * It returns an object that contains the options for the `execa` function
  * @param {string} cwd - The current working directory.
  */
-const execaOptions = (cwd: string) => ({
+export const execaOptions = (cwd: string) => ({
   cwd,
   cleanup: true,
   buffer: true,

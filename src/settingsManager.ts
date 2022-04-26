@@ -70,6 +70,14 @@ export class SettingsManager implements Settings {
     this.isEnabled = isEnabled;
     this.enableDebugLogs = enableDebugLogs;
     this.useDaemons = useDaemons;
+
+    if (useDaemons) {
+      if (!this.daemonPathEslint || !this.daemonPathPrettier) {
+        await this?.resolver?.setupDaemons(this);
+      }
+
+      await this?.resolver?.restartDaemons(this);
+    }
   };
 
   /** @description Override a specific setting until the next `.update()` */
