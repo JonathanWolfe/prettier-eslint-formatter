@@ -4,7 +4,6 @@ import type {
   TextDocument,
   TextEditor,
 } from 'vscode';
-import type { Options } from 'execa';
 
 import path from 'path';
 import {
@@ -179,7 +178,7 @@ export class FormatterService implements Disposable {
     let eslint = '';
 
     if (this.settingsManager.useDaemons) {
-      if (!this.settingsManager.daemonPathEslint || this.settingsManager.daemonPathPrettier) {
+      if (!this.settingsManager.daemonPathEslint || !this.settingsManager.daemonPathPrettier) {
         await this.resolver.setupDaemons(this.settingsManager, cwd);
       }
 
