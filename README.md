@@ -16,32 +16,32 @@ Formats your file first through Prettier then with ESLint.
 
 ## Usage
 
-Set this plugin as the default formatter for your filetype(s) in your workspace's or user `settings.json`. Disable `editor.codeActionsOnSave` so that the eslint vscode plugin does not format your file twice. (If you find a better way of disabling eslint's code action please let me know!)
+Set this plugin as the default formatter for your filetype(s) in your workspace's or user `settings.json`. Disable the eslint source action (`source.fixAll.eslint`) on `editor.codeActionsOnSave` so that the ESLint vscode plugin does not format your file twice.
 
 ```json
 {
   "[javascript]": {
     "editor.defaultFormatter": "jonwolfe.prettier-eslint-formatter",
     "editor.codeActionsOnSave": {
-      "source.fixAll": false
+      "source.fixAll.eslint": false
     }
   },
   "[javascriptreact]": {
     "editor.defaultFormatter": "jonwolfe.prettier-eslint-formatter",
     "editor.codeActionsOnSave": {
-      "source.fixAll": false
+      "source.fixAll.eslint": false
     }
   },
   "[typescript]": {
     "editor.defaultFormatter": "jonwolfe.prettier-eslint-formatter",
     "editor.codeActionsOnSave": {
-      "source.fixAll": false
+      "source.fixAll.eslint": false
     }
   },
   "[typescriptreact]": {
     "editor.defaultFormatter": "jonwolfe.prettier-eslint-formatter",
     "editor.codeActionsOnSave": {
-      "source.fixAll": false
+      "source.fixAll.eslint": false
     }
   }
 }
