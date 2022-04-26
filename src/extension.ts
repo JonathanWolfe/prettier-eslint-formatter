@@ -41,12 +41,26 @@ export async function activate(context: ExtensionContext) {
     formatterService.forceFormatDocument,
   );
 
+  const restartDaemonsCommand = commands.registerCommand(
+    'prettier-eslint-formatter.restartDaemons',
+    async () => {
+      if (settingsManager.useDaemons) {
+        if (settingsManager.daemonPathEslint || settingsManager.daemonPathPrettier) {
+          await formatterService.resolver.setupDaemons(settingsManager);
+        }
+
+        await formatterService.resolver.restartDaemons(settingsManager);
+      }
+    },
+  );
+
   logger.logInfo('Settings subscriptions');
 
   context.subscriptions.push(
     formatterService,
     openOutputCommand,
     forceFormatDocumentCommand,
+    restartDaemonsCommand,
     ...formatterService.registerDisposables(),
   );
 }

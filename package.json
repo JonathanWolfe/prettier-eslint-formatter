@@ -76,6 +76,10 @@
       {
         "command": "prettier-eslint-formatter.openOutput",
         "title": "Open PEF output channel"
+      },
+      {
+        "command": "prettier-eslint-formatter.restartDaemons",
+        "title": "Restart Daemons"
       }
     ]
   },
