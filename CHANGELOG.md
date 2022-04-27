@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.0.3](https://github.com/JonathanWolfe/prettier-eslint-formatter/compare/v2.0.2...v2.0.3) (2022-04-27)
+
+
+### Bug Fixes
+
+* Don't strip final newline ([44a219a](https://github.com/JonathanWolfe/prettier-eslint-formatter/commit/44a219a730cd30366ca0d20570e30a8d79436c8a))
+
 ### [2.0.2](https://github.com/JonathanWolfe/prettier-eslint-formatter/compare/v2.0.1...v2.0.2) (2022-04-26)
 
 
