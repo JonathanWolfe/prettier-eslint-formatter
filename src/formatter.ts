@@ -16,6 +16,7 @@ export const execaOptions = (cwd: string) => ({
   preferLocal: true,
   localDir: cwd,
   windowsHide: true,
+  stripFinalNewline: false,
   env: {
     PRETTIERD_LOCAL_PRETTIER_ONLY: '1',
   },
